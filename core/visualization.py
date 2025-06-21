@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 from datetime import datetime
+import os
 
 
 def plot_progress(results, quiz_name=None):
@@ -42,4 +43,17 @@ def plot_progress(results, quiz_name=None):
     plt.grid(True)
     plt.xticks(rotation=45)
     plt.tight_layout()
+
+
+    path_to_plot = '../data/plot.png'
+    output_dir = os.path.dirname(path_to_plot)
+    if output_dir and not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+        print(f"Utworzono katalog: {output_dir}")
+
+    try:
+        plt.savefig(path_to_plot)
+    except Exception as e:
+        pass
+
     plt.show()
