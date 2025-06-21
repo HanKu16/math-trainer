@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 
 
-# ... kod bez zmian, ale plik został przeniesiony do core/
 def plot_progress(results, quiz_name=None):
     """
     Generuje wykres postępów użytkownika.

@@ -4,7 +4,7 @@ class FractionsQuiz:
     """Klasa reprezentująca quiz z ułamków."""
 
     def __init__(self):
-        pass # Pytania są teraz ładowane z JSON
+        pass
 
     def get_name(self):
         return "Ułamki"
@@ -16,15 +16,11 @@ class FractionsQuiz:
         correct_answer: poprawna odpowiedź (z JSON, oczekujemy stringa "licznik/mianownik")
         """
         try:
-            # Konwersja odpowiedzi użytkownika na obiekt Fraction
             user_fraction = Fraction(user_answer_str)
-            # Konwersja poprawnej odpowiedzi na obiekt Fraction
             # Zakładamy, że correct_answer z JSON jest stringiem "licznik/mianownik"
-            correct_fraction = Fraction(str(correct_answer)) # Upewniamy się, że to string
-
+            correct_fraction = Fraction(str(correct_answer))
             return user_fraction == correct_fraction
         except ValueError:
-            # Użytkownik wprowadził coś, co nie jest ułamkiem
             return False
         except Exception as e:
             print(f"Błąd podczas sprawdzania odpowiedzi: {e}")

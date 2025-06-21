@@ -7,7 +7,6 @@ from core.visualization import plot_progress
 class UserProgress:
     """Zarządza zapisywaniem, odczytywaniem i analizowaniem postępów użytkownika."""
 
-    # Zmiana ścieżki dostosowana do nowej struktury pakietów
     def __init__(self, data_file="../data/results.csv"):
         # Ścieżka do results.csv względem katalogu 'core'
         self.__data_file = os.path.abspath(os.path.join(os.path.dirname(__file__), data_file))

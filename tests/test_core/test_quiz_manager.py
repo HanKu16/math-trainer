@@ -10,7 +10,6 @@ from unittest.mock import patch
 # gdy testy są uruchamiane przez PyCharm lub unittest bezpośrednio.
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..')))
 
-# Importujemy z pełnymi ścieżkami pakietowymi
 from math_trainer.core.quiz_manager import QuizManager
 
 class TestQuizManager(unittest.TestCase):
@@ -23,8 +22,6 @@ class TestQuizManager(unittest.TestCase):
         self.test_root_dir = os.path.join(os.path.dirname(__file__), 'temp_test_env')
         self.test_quiz_dir = os.path.join(self.test_root_dir, "quizzes")
         self.test_data_file = os.path.join(self.test_quiz_dir, "test_quiz_data.json")
-        # self.test_core_dir nie jest bezpośrednio potrzebny, ponieważ quiz_manager.py jest importowany
-        # i jego ścieżki są względne do jego własnego położenia, nie do położenia testu.
 
         # Tworzenie tymczasowych katalogów
         os.makedirs(self.test_quiz_dir, exist_ok=True)
@@ -100,7 +97,6 @@ class TestPowersQuiz:
 
         importlib.invalidate_caches() # Ważne po modyfikacji sys.path
 
-
     def test_load_quiz_definitions(self):
         """Testuje, czy definicje klas quizów są poprawnie ładowane."""
         # Sprawdzamy, czy nasze tymczasowe klasy zostały załadowane
@@ -110,7 +106,6 @@ class TestPowersQuiz:
         # Sprawdzamy, czy załadowane obiekty są typami (klasami)
         self.assertTrue(isinstance(self.quiz_manager.available_quizzes["Test Quiz Arytmetyka"], type))
         self.assertTrue(isinstance(self.quiz_manager.available_quizzes["Test Quiz Potęgi"], type))
-
 
     def test_load_quiz_questions(self):
         """Testuje, czy pytania są poprawnie ładowane z JSON."""

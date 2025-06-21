@@ -1,5 +1,3 @@
-import random
-
 class BasicArithmeticQuiz:
     """Klasa reprezentująca quiz z podstawowej arytmetyki."""
 

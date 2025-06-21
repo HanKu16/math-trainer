@@ -1,8 +1,3 @@
-import sys
-import os
-
-# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-
 from core.quiz_manager import QuizManager
 from core.user_progress import UserProgress
 from core.utils import get_positive_integer_input

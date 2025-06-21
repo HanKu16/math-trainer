@@ -16,7 +16,6 @@ class QuizManager:
         self.available_quizzes = self._load_quiz_definitions()
         self.quiz_questions = self._load_quiz_questions()
 
-    # ... reszta kodu quiz_manager.py pozostaje bez zmian ...
     def _load_quiz_questions(self):
         """Prywatna metoda do ładowania pytań quizowych z pliku JSON."""
         questions_data = {}
@@ -50,8 +49,6 @@ class QuizManager:
             if filename.endswith(".py") and filename != "__init__.py":
                 module_name = filename[:-3]
                 try:
-                    # Zmiana tutaj: importujemy moduł bezpośrednio po nazwie pliku,
-                    # ponieważ dodaliśmy quiz_module_path do sys.path.
                     module = importlib.import_module(module_name)
                     for attr_name in dir(module):
                         attribute = getattr(module, attr_name)
@@ -65,11 +62,9 @@ class QuizManager:
                 except Exception as e:
                     print(f"Błąd ładowania definicji quizu z pliku {filename}: {e}")
 
-        # Opcjonalnie: Usuń quiz_module_path z sys.path po zakończeniu ładowania,
-        # aby nie zaśmiecać ścieżki i uniknąć potencjalnych kolizji.
         if quiz_module_path in sys.path:
             sys.path.remove(quiz_module_path)
-            importlib.invalidate_caches()  # Ważne po modyfikacji sys.path
+            importlib.invalidate_caches()
 
         return quizzes
 
@@ -101,7 +96,6 @@ class QuizManager:
         else:
             selected_questions = questions_for_quiz
 
-        # Sprawdź, czy każdy słownik pytania ma 'question' i 'answer'
         for q in selected_questions:
             if not isinstance(q, dict) or 'question' not in q or 'answer' not in q:
                 raise ValueError(f"Nieprawidłowy format pytania w quiz_data.json dla quizu '{quiz_name}': {q}")
