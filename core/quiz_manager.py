@@ -5,7 +5,7 @@ import random
 import sys
 
 
-class QuizManager:
+class QuizManager(object):
     """Zarządza ładowaniem, uruchamianiem quizów i ich danymi z pliku JSON."""
 
     # Zmiana ścieżek dostosowana do nowej struktury pakietów
