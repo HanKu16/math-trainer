@@ -13,7 +13,8 @@ def main():
         print("\n--- Trener Matematyczny ---")
         print("1. Rozpocznij quiz")
         print("2. Sprawdź postępy")
-        print("3. Wyjdź")
+        print("3. Dodaj własne pytanie")
+        print("4. Wyjdź")
 
         choice = input("Wybierz opcję: ")
 
@@ -114,8 +115,44 @@ def main():
                 print("Nieprawidłowa opcja analizy.")
 
         elif choice == '3':
-            print("Dziękujemy za skorzystanie z Trenera Matematycznego!")
-            break
+            print("\n--- Dodaj własne pytanie ---")
+            available_quizzes = quiz_manager.list_quizzes()
+            print("Do którego quizu chcesz dodać pytanie?")
+            if available_quizzes:
+                for i, quiz_name in enumerate(available_quizzes):
+                    print(f"{i + 1}. {quiz_name}")
+                print(f"{len(available_quizzes) + 1}. ➕ Stwórz nowy quiz")
+
+                while True:
+                    try:
+                        quiz_choice_str = input("Wybierz numer quizu: ")
+                        quiz_index = int(quiz_choice_str) - 1
+                        if 0 <= quiz_index < len(available_quizzes):
+                            selected_quiz_name = available_quizzes[quiz_index]
+                            break
+                        elif quiz_index == len(available_quizzes):
+                            selected_quiz_name = input("Podaj nazwę nowego quizu: ").strip()
+                            break
+                        else:
+                            print("Nieprawidłowy numer. Spróbuj ponownie.")
+                    except ValueError:
+                        print("Wprowadź liczbę.")
+            elif choice == '4':
+                print("Dziękujemy za skorzystanie z Trenera Matematycznego!")
+                break
+            else:
+                selected_quiz_name = input("Brak quizów. Podaj nazwę nowego quizu: ").strip()
+
+            question_text = input("Wpisz treść pytania: ").strip()
+            correct_answer = input("Wpisz poprawną odpowiedź: ").strip()
+
+            try:
+                quiz_manager.add_question_to_quiz(
+                    selected_quiz_name, question_text, correct_answer
+                )
+                print(f"✅ Dodano pytanie do quizu: {selected_quiz_name}")
+            except Exception as e:
+                print(f"❌ Błąd podczas dodawania pytania: {e}")
         else:
             print("Nieprawidłowa opcja. Wybierz ponownie.")
 

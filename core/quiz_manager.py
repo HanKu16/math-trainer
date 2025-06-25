@@ -30,6 +30,32 @@ class QuizManager(object):
             print(f"Wystąpił błąd podczas wczytywania danych quizów: {e}")
         return questions_data
 
+    def add_question_to_quiz(self, quiz_name, question_text, correct_answer):
+        """
+        Dodaje nowe pytanie do podanego quizu. Tworzy quiz, jeśli nie istnieje.
+        """
+        data = {}
+
+        if os.path.exists(self.quiz_data_file):
+            with open(self.quiz_data_file, 'r', encoding='utf-8') as file:
+                try:
+                    data = json.load(file)
+                except json.JSONDecodeError:
+                    print("⚠️ Plik JSON był pusty lub uszkodzony. Tworzę nowy.")
+
+        if quiz_name not in data:
+            data[quiz_name] = []
+
+        new_question = {
+            "question": question_text,
+            "answer": correct_answer
+        }
+        data[quiz_name].append(new_question)
+
+        with open(self.quiz_data_file, 'w', encoding='utf-8') as file:
+            json.dump(data, file, ensure_ascii=False, indent=4)
+
+        print(f"✅ Dodano pytanie do quizu '{quiz_name}'")
     def _load_quiz_definitions(self):
         """
         Prywatna metoda do ładowania klas quizów z katalogu quizzes.
